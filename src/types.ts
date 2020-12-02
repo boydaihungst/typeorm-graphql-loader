@@ -81,11 +81,11 @@ export interface QueryPagination
   /**
    * the max number of records to return
    */
-  limit: number;
+  limit?: number;
   /**
    * the offset from where to return records
    */
-  offset: number;
+  offset?: number;
 }
 
 /**
