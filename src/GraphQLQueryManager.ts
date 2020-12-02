@@ -228,11 +228,11 @@ export class GraphQLQueryManager {
       if (item.pagination) {
         // promise = queryBuilder.getManyAndCount();
         const paginator = buildPaginator({
-          entity: name as any,
           query: {
             limit: 10,
             order: 'ASC',
           },
+          paginationKeys: ['id'],
           alias: alias,
           ...item.pagination,
         });

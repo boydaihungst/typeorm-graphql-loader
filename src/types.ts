@@ -74,10 +74,7 @@ export interface SearchOptions {
 }
 
 export interface QueryPagination
-  extends Pick<
-    PagniationOtions<BaseEntity>,
-    'alias' | 'query' | 'paginationKeys'
-  > {
+  extends PagniationOtions<{ [key: string]: string }> {
   /**
    * the max number of records to return
    */
