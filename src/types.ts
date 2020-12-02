@@ -73,7 +73,11 @@ export interface SearchOptions {
   caseSensitive?: boolean;
 }
 
-export interface QueryPagination {
+export interface QueryPagination
+  extends Pick<
+    PagniationOtions<BaseEntity>,
+    'alias' | 'query' | 'paginationKeys'
+  > {
   /**
    * the max number of records to return
    */
@@ -276,10 +280,7 @@ export interface QueueItem {
   resolve: (value?: any) => any;
   reject: (reason: any) => void;
   entity: Function | string;
-  pagination?: Pick<
-    PagniationOtions<BaseEntity>,
-    'alias' | 'query' | 'paginationKeys'
-  >;
+  pagination?: QueryPagination;
   alias?: string;
   context?: any;
   ejectQueryCallback: EjectQueryCallback<any>;
