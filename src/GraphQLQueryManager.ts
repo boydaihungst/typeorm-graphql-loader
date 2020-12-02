@@ -219,13 +219,20 @@ export class GraphQLQueryManager {
         queryBuilder,
         item.predicates.order,
       );
-
-      // queryBuilder = this._addPagination(queryBuilder, item.pagination);
+      // Limit pagination
+      if (item.pagination?.offset) {
+        queryBuilder = this._addPagination(queryBuilder, item.pagination);
+      }
 
       queryBuilder = item.ejectQueryCallback(queryBuilder);
 
       let promise;
-      if (item.pagination) {
+      // Limit pagination
+      if (item.pagination?.offset) {
+        promise = queryBuilder.getManyAndCount();
+      }
+      // cursor pagination
+      if (item.pagination?.query) {
         // promise = queryBuilder.getManyAndCount();
         const paginator = buildPaginator({
           query: {
@@ -238,7 +245,6 @@ export class GraphQLQueryManager {
           ...item.pagination,
         });
 
-        // Pass queryBuilder as parameter to get paginate result.
         promise = paginator.paginate(queryBuilder as any);
       } else if (item.many) {
         promise = queryBuilder.getMany();

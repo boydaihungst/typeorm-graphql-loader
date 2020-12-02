@@ -1,4 +1,4 @@
-import { GraphQLResolveInfo } from "graphql";
+import { GraphQLResolveInfo } from 'graphql';
 import {
   EjectQueryCallback,
   GraphQLEntityFields,
@@ -7,10 +7,11 @@ import {
   SearchOptions,
   WhereArgument,
   WhereExpression,
-} from "./types";
-import { GraphQLQueryManager } from "./GraphQLQueryManager";
-import { BaseEntity, ObjectLiteral, OrderByCondition } from "typeorm";
-import { GraphQLInfoParser } from "./lib/GraphQLInfoParser";
+} from './types';
+import { GraphQLQueryManager } from './GraphQLQueryManager';
+import { BaseEntity, ObjectLiteral, OrderByCondition } from 'typeorm';
+import { GraphQLInfoParser } from './lib/GraphQLInfoParser';
+import { PagingResult } from 'typeorm-cursor-pagination';
 
 export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
   private _info: GraphQLEntityFields | null = null;
@@ -27,7 +28,7 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
   constructor(
     private _manager: GraphQLQueryManager,
     private _entity: Function | string,
-    private _alias?: string
+    private _alias?: string,
   ) {}
 
   /**
@@ -54,7 +55,7 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
    */
   public info(
     info: GraphQLResolveInfo,
-    fieldName?: string
+    fieldName?: string,
   ): GraphQLQueryBuilder<T> {
     this._info = this._parser.parseResolveInfoModels(info, fieldName);
     return this;
@@ -85,9 +86,9 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
    */
   public where(
     where: WhereArgument,
-    params?: ObjectLiteral
+    params?: ObjectLiteral,
   ): GraphQLQueryBuilder<T> {
-    if (typeof where === "string") {
+    if (typeof where === 'string') {
       this._andWhereExpressions.push({
         condition: where,
         params,
@@ -120,9 +121,9 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
    */
   public orWhere(
     where: WhereArgument,
-    params?: ObjectLiteral
+    params?: ObjectLiteral,
   ): GraphQLQueryBuilder<T> {
-    if (typeof where === "string") {
+    if (typeof where === 'string') {
       this._orWhereExpressions.push({ condition: where, params });
     } else {
       this._orWhereExpressions.push(where);
@@ -373,12 +374,27 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
   public async loadPaginated(): Promise<[InstanceType<T>[], number]> {
     if (!this._pagination) {
       throw new Error(
-        "Must provide pagination object before calling load paginated"
+        'Must provide pagination object before calling load paginated',
       );
     }
     return this._genericLoad<true, true>(true, true);
   }
 
+  /**
+   * Loads a paginated set of records via offset and limit (see {@link GraphQLQueryBuilder.paginate})
+   * Will return the set of records and overall record count (ignores limit). This count can be
+   * used to build the next offset. Please note that the loader will not do any offset/limit calculations
+   * for you, it will only apply the values you give it.
+   * See [Pagination Advice](https://gitlab.com/Mando75/typeorm-graphql-loader/-/blob/master/md/pagination.md) for more info
+   */
+  public async loadCursorPaginated(): Promise<PagingResult<InstanceType<T>>> {
+    if (!this._pagination) {
+      throw new Error(
+        'Must provide pagination object before calling load paginated',
+      );
+    }
+    return this._genericLoad<true, true>(true, true) as any;
+  }
   /**
    * A generic loader to handle duplicate logic
    * from all the load methods.
@@ -388,7 +404,7 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
    */
   private async _genericLoad<U extends boolean, V extends boolean>(
     many: U,
-    paginate: V
+    paginate: V,
   ): Promise<
     V extends true
       ? [InstanceType<T>[], number]
@@ -402,12 +418,12 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
 
     const cacheAlias =
       this._alias ??
-      (typeof this._entity === "function" ? this._entity.name : this._entity);
+      (typeof this._entity === 'function' ? this._entity.name : this._entity);
 
     const { fields, found, key, item } = this._manager.processQueryMeta(
       this._info,
       this._andWhereExpressions,
-      cacheAlias
+      cacheAlias,
     );
 
     // if it is we can just return it
@@ -418,7 +434,7 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
     // Otherwise build an executor and and add it to the cache
     const executor = (
       resolve: (value?: any) => void,
-      reject: (reason?: any) => void
+      reject: (reason?: any) => void,
     ) => {
       this._manager.addQueueItem({
         many,
@@ -445,11 +461,11 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
    * Throw an error if the info object has not been defined for this query
    */
   private _validateInfo(
-    info?: GraphQLEntityFields | null
+    info?: GraphQLEntityFields | null,
   ): asserts info is GraphQLEntityFields {
     if (!this._info) {
       throw new Error(
-        "Missing GraphQL Resolve info. Please invoke `.info()` before calling this method"
+        'Missing GraphQL Resolve info. Please invoke `.info()` before calling this method',
       );
     }
   }
