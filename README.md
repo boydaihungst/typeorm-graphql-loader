@@ -1,4 +1,4 @@
-# TypeORM GraphQL Relation Loader
+# TypeORM GraphQL Relation Loader + Typeorm cursor pagination
 
 A dataloader for TypeORM that makes it easy to load TypeORM relations for
 GraphQL query resolvers.
@@ -11,6 +11,27 @@ GraphQL query resolvers.
 [![coverage report](https://gitlab.com/Mando75/typeorm-graphql-loader/badges/master/coverage.svg)](https://gitlab.com/Mando75/typeorm-graphql-loader/-/commits/master)
 
 
+## Typeorm cursor pagination
+Docs: https://github.com/benjamin658/typeorm-cursor-pagination
+How to use:
+```
+loader
+.loadEntity(User, 'user')
+.info(info)
+.search({
+  searchColumns: args.searchColumn,
+  searchText: args.searchText,
+  searchMethod: args.searchMethod,
+  caseSensitive: args.caseSensitive,
+})
+.paginate({ // https://github.com/benjamin658/typeorm-cursor-pagination#usage
+  query: {  
+    limit: 10,
+    order: 'ASC' |'DESC',
+  },
+})
+.loadCursorPaginated();
+```
 
 ## UPGRADE NOTICE
 
