@@ -220,23 +220,25 @@ export class GraphQLQueryManager {
         item.predicates.order,
       );
 
-      queryBuilder = this._addPagination(queryBuilder, item.pagination);
+      // queryBuilder = this._addPagination(queryBuilder, item.pagination);
 
       queryBuilder = item.ejectQueryCallback(queryBuilder);
 
       let promise;
       if (item.pagination) {
-        promise = queryBuilder.getManyAndCount();
+        // promise = queryBuilder.getManyAndCount();
         const paginator = buildPaginator({
           entity: item.entity as any,
           query: {
             limit: 10,
             order: 'ASC',
           },
+          alias: name,
+          ...item.pagination,
         });
 
         // Pass queryBuilder as parameter to get paginate result.
-        promise = paginator.paginate(queryBuilder);
+        promise = paginator.paginate(queryBuilder as any);
       } else if (item.many) {
         promise = queryBuilder.getMany();
       } else {
