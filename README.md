@@ -16,7 +16,7 @@ Docs: https://github.com/benjamin658/typeorm-cursor-pagination
 
 How to use:
 ```
-loader
+const { data, cursor } = loader
 .loadEntity(User, 'user')
 .info(info)
 .search({
