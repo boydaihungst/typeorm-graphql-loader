@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf -rf dist && tsc --declaration",
-    "prepare": "yarn build",
+    "postinstall": "cd ./node_modules/@mando75/typeorm-graphql-loader && yarn install && yarn build",
     "publish:docs": "typedoc --options typedoc.json",
     "lint": "eslint \"./src/**/*.ts\"",
     "lint:fix": "yarn lint --fix",
