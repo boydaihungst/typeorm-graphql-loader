@@ -13,6 +13,7 @@ GraphQL query resolvers.
 
 ## Typeorm cursor pagination
 Docs: https://github.com/benjamin658/typeorm-cursor-pagination
+
 How to use:
 ```
 loader
