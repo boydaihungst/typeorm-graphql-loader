@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "yarn lint && rimraf -rf dist && tsc --declaration",
+    "build": "rimraf -rf dist && tsc --declaration",
     "prepare": "yarn build",
     "publish:docs": "typedoc --options typedoc.json",
     "lint": "eslint \"./src/**/*.ts\"",
