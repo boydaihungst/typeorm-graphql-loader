@@ -15,10 +15,28 @@ GraphQL query resolvers.
 Docs: https://github.com/benjamin658/typeorm-cursor-pagination
 
 How to use:
+CLient query: 
+```
+query User{
+  User(limit: 1, searchText: "john", email: true) {
+    data {
+        id
+        email
+        firstName
+        lastName
+        fullName
+      }
+    }
+    cursor {
+      beforeCursor
+      afterCursor
+    }
+}
+```
 ```
 const { data, cursor } = loader
     .loadEntity(User, 'user')
-    .info(info)
+    .info(info, 'data') // Important
     .search({
       searchColumns: args.searchColumn,
       searchText: args.searchText,
