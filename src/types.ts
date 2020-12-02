@@ -74,7 +74,7 @@ export interface SearchOptions {
 }
 
 export interface QueryPagination
-  extends PagniationOtions<{ [key: string]: string }> {
+  extends Partial<PagniationOtions<{ [key: string]: string }>> {
   /**
    * the max number of records to return
    */
