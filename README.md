@@ -17,21 +17,21 @@ Docs: https://github.com/benjamin658/typeorm-cursor-pagination
 How to use:
 ```
 const { data, cursor } = loader
-.loadEntity(User, 'user')
-.info(info)
-.search({
-  searchColumns: args.searchColumn,
-  searchText: args.searchText,
-  searchMethod: args.searchMethod,
-  caseSensitive: args.caseSensitive,
-})
-.paginate({ // https://github.com/benjamin658/typeorm-cursor-pagination#usage
-  query: {  
-    limit: 10,
-    order: 'ASC' |'DESC',
-  },
-})
-.loadCursorPaginated();
+    .loadEntity(User, 'user')
+    .info(info)
+    .search({
+      searchColumns: args.searchColumn,
+      searchText: args.searchText,
+      searchMethod: args.searchMethod,
+      caseSensitive: args.caseSensitive,
+    })
+    .paginate({ // https://github.com/benjamin658/typeorm-cursor-pagination#usage
+      query: {  
+        limit: 10,
+        order: 'ASC' |'DESC',
+      },
+    })
+    .loadCursorPaginated();
 ```
 
 ## UPGRADE NOTICE
