@@ -234,6 +234,7 @@ export class GraphQLQueryManager {
           },
           paginationKeys: ['id'],
           alias: alias,
+          entity: item.entity as any,
           ...item.pagination,
         });
 

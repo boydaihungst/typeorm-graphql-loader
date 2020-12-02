@@ -73,8 +73,7 @@ export interface SearchOptions {
   caseSensitive?: boolean;
 }
 
-export interface QueryPagination
-  extends Partial<PagniationOtions<{ [key: string]: string }>> {
+export interface QueryPagination extends Partial<PagniationOtions<any>> {
   /**
    * the max number of records to return
    */
