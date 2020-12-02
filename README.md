@@ -15,10 +15,11 @@ GraphQL query resolvers.
 Docs: https://github.com/benjamin658/typeorm-cursor-pagination
 
 How to use:
-CLient query: 
+
+Client query: 
 ```
 query User{
-  User(limit: 1, searchText: "john", email: true) {
+  User(limit: 1, searchText: "john") {
     data {
         id
         email
@@ -33,19 +34,19 @@ query User{
     }
 }
 ```
+Resolver
+
 ```
 const { data, cursor } = loader
     .loadEntity(User, 'user')
     .info(info, 'data') // Important
     .search({
-      searchColumns: args.searchColumn,
-      searchText: args.searchText,
-      searchMethod: args.searchMethod,
-      caseSensitive: args.caseSensitive,
+      searchColumns: ['email'],
+      searchText: args.searchText
     })
     .paginate({ // https://github.com/benjamin658/typeorm-cursor-pagination#usage
       query: {  
-        limit: 10,
+        limit: args.limit,
         order: 'ASC' |'DESC',
       },
     })
