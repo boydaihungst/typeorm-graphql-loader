@@ -19,7 +19,7 @@ How to use:
 Client query: 
 ```
 query User{
-  User(limit: 1, searchText: "john") {
+  User(limit: 1, order: 'ASC', searchText: "john", afterCursor: "aWQ6OTFhMjM4NzktZmFiMS00NWQyLTlkOTEtMDAyNWVmM2NiM2U0") {
     data {
         id
         email
@@ -47,7 +47,9 @@ const { data, cursor } = loader
     .paginate({ // https://github.com/benjamin658/typeorm-cursor-pagination#usage
       query: {  
         limit: args.limit,
-        order: 'ASC' |'DESC',
+        order: args.order,
+        afterCursor: args.afterCursor,
+        beforeCursor: args.beforeCursor,
       },
     })
     .loadCursorPaginated();
