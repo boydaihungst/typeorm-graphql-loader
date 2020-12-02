@@ -6,6 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "yarn lint && rimraf -rf dist && tsc --declaration",
+    "prepare": "yarn build",
     "publish:docs": "typedoc --options typedoc.json",
     "lint": "eslint \"./src/**/*.ts\"",
     "lint:fix": "yarn lint --fix",
@@ -41,7 +42,8 @@
   },
   "homepage": "https://gql-loader.bmuller.net",
   "dependencies": {
-    "graphql-parse-resolve-info": "^4.9.0"
+    "graphql-parse-resolve-info": "^4.9.0",
+    "typeorm-cursor-pagination": "^0.4.1"
   },
   "devDependencies": {
     "@types/chai": "^4.2.3",
