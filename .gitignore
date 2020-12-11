@@ -7,7 +7,6 @@ temp/
 *.sqlite3
 .nyc_output/
 coverage/
-dist/
 yarn-error.log
 public/
 testSchema.graphql

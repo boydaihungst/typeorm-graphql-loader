@@ -1,0 +1,37 @@
+import { GraphQLResolveInfo } from 'graphql';
+import { EjectQueryCallback, QueryPagination, SearchOptions, WhereArgument } from './types';
+import { GraphQLQueryManager } from './GraphQLQueryManager';
+import { BaseEntity, ObjectLiteral, OrderByCondition } from 'typeorm';
+import { PagingResult } from 'typeorm-cursor-pagination';
+export declare class GraphQLQueryBuilder<T extends typeof BaseEntity> {
+    private _manager;
+    private _entity;
+    private _alias?;
+    private _info;
+    private _andWhereExpressions;
+    private _orWhereExpressions;
+    private _searchExpressions;
+    private _order;
+    private _selectFields;
+    private _pagination?;
+    private _parser;
+    private _context;
+    private _ejectQueryCallback;
+    constructor(_manager: GraphQLQueryManager, _entity: Function | string, _alias?: string | undefined);
+    info(info: GraphQLResolveInfo, fieldName?: string): GraphQLQueryBuilder<T>;
+    where(where: WhereArgument, params?: ObjectLiteral): GraphQLQueryBuilder<T>;
+    orWhere(where: WhereArgument, params?: ObjectLiteral): GraphQLQueryBuilder<T>;
+    search(searchOptions: SearchOptions): GraphQLQueryBuilder<T>;
+    order(order: OrderByCondition): GraphQLQueryBuilder<T>;
+    selectFields(fields: string | Array<string>): GraphQLQueryBuilder<T>;
+    paginate(pagination: QueryPagination): GraphQLQueryBuilder<T>;
+    context<K>(context: K): GraphQLQueryBuilder<T>;
+    ejectQueryBuilder(cb: EjectQueryCallback<T>): GraphQLQueryBuilder<T>;
+    loadOne(): Promise<InstanceType<T> | undefined>;
+    loadMany(): Promise<InstanceType<T>[]>;
+    loadPaginated(): Promise<[InstanceType<T>[], number]>;
+    loadCursorPaginated(): Promise<PagingResult<InstanceType<T>>>;
+    private _genericLoad;
+    private _validateInfo;
+    private _getQueryPredicates;
+}

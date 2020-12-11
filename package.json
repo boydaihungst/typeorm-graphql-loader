@@ -6,7 +6,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rimraf -rf dist && tsc --declaration",
-    "prepare": "yarn build",
     "publish:docs": "typedoc --options typedoc.json",
     "lint": "eslint \"./src/**/*.ts\"",
     "lint:fix": "yarn lint --fix",
