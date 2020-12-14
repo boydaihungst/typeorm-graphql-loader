@@ -174,10 +174,7 @@ var GraphQLQueryManager = (function () {
                     promise = queryBuilder.getManyAndCount();
                 }
                 if ((_d = item.pagination) === null || _d === void 0 ? void 0 : _d.query) {
-                    paginator = typeorm_cursor_pagination_1.buildPaginator(__assign({ query: {
-                            limit: 10,
-                            order: 'ASC',
-                        }, paginationKeys: ['id'], alias: alias, entity: item.entity }, item.pagination));
+                    paginator = typeorm_cursor_pagination_1.buildPaginator(__assign({ returnEntity: item.entity }, item.pagination));
                     promise = paginator.paginate(queryBuilder);
                 }
                 else if (item.many) {
