@@ -3244,7 +3244,7 @@ typedoc@^0.19.2:
 
 "typeorm-cursor-pagination@https://github.com/boydaihungst/typeorm-cursor-pagination":
   version "0.4.1"
-  resolved "https://github.com/boydaihungst/typeorm-cursor-pagination#37f3c10c4ba35e0f643fa261ab83c8098b4ebfe9"
+  resolved "https://github.com/boydaihungst/typeorm-cursor-pagination#0917ed0198f731a6a56aa7aefdb27cd237c6b459"
 
 typeorm@^0.2.19:
   version "0.2.26"
