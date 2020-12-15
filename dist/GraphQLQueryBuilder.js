@@ -81,7 +81,7 @@ var GraphQLQueryBuilder = (function () {
         return this;
     };
     GraphQLQueryBuilder.prototype.withDelete = function (withDeleted) {
-        if (withDeleted === void 0) { withDeleted = this._withDelete; }
+        if (withDeleted === void 0) { withDeleted = true; }
         this._withDelete = withDeleted;
         return this;
     };

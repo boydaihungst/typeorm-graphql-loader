@@ -100,7 +100,7 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
     return this;
   }
 
-  public withDelete(withDeleted = this._withDelete): GraphQLQueryBuilder<T> {
+  public withDelete(withDeleted = true): GraphQLQueryBuilder<T> {
     this._withDelete = withDeleted;
     return this;
   }
