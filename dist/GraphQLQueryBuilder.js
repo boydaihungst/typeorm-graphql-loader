@@ -59,6 +59,7 @@ var GraphQLQueryBuilder = (function () {
         this._orWhereExpressions = [];
         this._searchExpressions = [];
         this._order = {};
+        this._withDelete = false;
         this._selectFields = [];
         this._parser = new GraphQLInfoParser_1.GraphQLInfoParser();
         this._ejectQueryCallback = null;
@@ -77,6 +78,11 @@ var GraphQLQueryBuilder = (function () {
         else {
             this._andWhereExpressions.push(where);
         }
+        return this;
+    };
+    GraphQLQueryBuilder.prototype.withDelete = function (withDeleted) {
+        if (withDeleted === void 0) { withDeleted = this._withDelete; }
+        this._withDelete = withDeleted;
         return this;
     };
     GraphQLQueryBuilder.prototype.orWhere = function (where, params) {
@@ -191,6 +197,7 @@ var GraphQLQueryBuilder = (function () {
             andWhere: this._andWhereExpressions,
             orWhere: this._orWhereExpressions,
             order: this._order,
+            withDeleted: this._withDelete,
             selectFields: this._selectFields.flat(),
         };
     };

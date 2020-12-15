@@ -166,6 +166,7 @@ var GraphQLQueryManager = (function () {
                 queryBuilder = this._addOrWhereConditions(queryBuilder, item.predicates.orWhere);
                 queryBuilder = this._addSearchConditions(queryBuilder, alias, item.predicates.search);
                 queryBuilder = this._addOrderByCondition(queryBuilder, item.predicates.order);
+                queryBuilder = this._addWithDeleted(queryBuilder, item.predicates.withDeleted);
                 if ((_b = item.pagination) === null || _b === void 0 ? void 0 : _b.offset) {
                     queryBuilder = this._addPagination(queryBuilder, item.pagination);
                 }
@@ -206,6 +207,11 @@ var GraphQLQueryManager = (function () {
             var _a = GraphQLQueryManager._breakDownWhereExpression(condition), where = _a.where, params = _a.params;
             qb = qb.orWhere(where, params);
         });
+        return qb;
+    };
+    GraphQLQueryManager.prototype._addWithDeleted = function (qb, withDeleted) {
+        if (withDeleted)
+            qb = qb.withDeleted();
         return qb;
     };
     GraphQLQueryManager.prototype._addSearchConditions = function (qb, alias, searchConditions) {

@@ -210,6 +210,7 @@ export class GraphQLQueryManager {
         queryBuilder,
         item.predicates.orWhere,
       );
+
       queryBuilder = this._addSearchConditions(
         queryBuilder,
         alias,
@@ -218,6 +219,10 @@ export class GraphQLQueryManager {
       queryBuilder = this._addOrderByCondition(
         queryBuilder,
         item.predicates.order,
+      );
+      queryBuilder = this._addWithDeleted(
+        queryBuilder,
+        item.predicates.withDeleted,
       );
       // Limit pagination
       if (item.pagination?.offset) {
@@ -300,6 +305,20 @@ export class GraphQLQueryManager {
     return qb;
   }
 
+  /**
+   * Query deleted entity
+   * via the TypeORM QueryBuilder
+   * @param qb
+   * @param conditions
+   * @private
+   */
+  private _addWithDeleted(
+    qb: SelectQueryBuilder<{}>,
+    withDeleted: boolean,
+  ): SelectQueryBuilder<{}> {
+    if (withDeleted) qb = qb.withDeleted();
+    return qb;
+  }
   /**
    * Given a list of search conditions, adds them to the query builder.
    * If multiple sets of search conditions are passed, the will be ANDed together

@@ -19,6 +19,7 @@ export declare class GraphQLQueryManager {
     private _resolveQueueItem;
     private _addAndWhereConditions;
     private _addOrWhereConditions;
+    private _addWithDeleted;
     private _addSearchConditions;
     private _formatSearchConditions;
     private _addPagination;

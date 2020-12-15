@@ -19,6 +19,7 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
   private _orWhereExpressions: Array<WhereExpression> = [];
   private _searchExpressions: Array<SearchOptions> = [];
   private _order: OrderByCondition = {};
+  private _withDelete: boolean = false;
   private _selectFields: Array<string | Array<string>> = [];
   private _pagination?: QueryPagination;
   private _parser: GraphQLInfoParser = new GraphQLInfoParser();
@@ -99,6 +100,10 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
     return this;
   }
 
+  public withDelete(withDeleted = this._withDelete): GraphQLQueryBuilder<T> {
+    this._withDelete = withDeleted;
+    return this;
+  }
   /**
    * Provide the query builder with an OR WHERE condition. Multiple conditions can be added
    * by re-invoking the method (they get added to a list). Any where conditions added via this
@@ -481,6 +486,7 @@ export class GraphQLQueryBuilder<T extends typeof BaseEntity> {
       andWhere: this._andWhereExpressions,
       orWhere: this._orWhereExpressions,
       order: this._order,
+      withDeleted: this._withDelete,
       selectFields: this._selectFields.flat(),
     };
   }

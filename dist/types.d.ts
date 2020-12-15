@@ -38,6 +38,7 @@ export interface QueryPredicates {
     orWhere: Array<WhereExpression>;
     search: Array<SearchOptions>;
     order: OrderByCondition;
+    withDeleted: boolean;
     selectFields: Array<string>;
 }
 export interface QueueItem {
