@@ -21,7 +21,7 @@ export declare class GraphQLQueryBuilder<T extends typeof BaseEntity> {
     constructor(_manager: GraphQLQueryManager, _entity: Function | string, _alias?: string | undefined);
     info(info: GraphQLResolveInfo, fieldName?: string): GraphQLQueryBuilder<T>;
     where(where: WhereArgument, params?: ObjectLiteral): GraphQLQueryBuilder<T>;
-    withDelete(withDeleted?: boolean): GraphQLQueryBuilder<T>;
+    withDelete(withDeleted: boolean): GraphQLQueryBuilder<T>;
     orWhere(where: WhereArgument, params?: ObjectLiteral): GraphQLQueryBuilder<T>;
     search(searchOptions: SearchOptions): GraphQLQueryBuilder<T>;
     order(order: OrderByCondition): GraphQLQueryBuilder<T>;
